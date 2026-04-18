@@ -34,6 +34,8 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+  width: 100%;
+  background-color: var(--black-red);
 }
 
 body {
@@ -43,14 +45,17 @@ body {
     radial-gradient(circle at 50% 20%, rgba(var(--gold-crown-rgb), 0.07), transparent 45%),
     radial-gradient(circle at 20% 85%, rgba(var(--gold-edict-rgb), 0.1), transparent 42%),
     linear-gradient(160deg, var(--black-red) 0%, var(--bg-deep-red) 38%, #3e0c0c 100%);
+  background-attachment: fixed;
+  overscroll-behavior-y: none;
 }
 
 .page {
-  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 24px;
+  padding: clamp(10px, 2.6vw, 24px);
 }
 
 .screen {
@@ -77,8 +82,11 @@ body {
   border-radius: 14px;
   text-align: center;
   position: relative;
-  background: linear-gradient(180deg, rgba(47, 12, 12, 0.94), rgba(18, 5, 5, 0.95));
-  box-shadow: 0 24px 70px var(--shadow-dark);
+  border: 1px solid rgba(var(--gold-bronze-rgb), 0.35);
+  background: linear-gradient(180deg, rgba(36, 10, 10, 0.76), rgba(22, 7, 7, 0.78));
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.36),
+    0 0 0 1px rgba(var(--gold-brass-rgb), 0.12) inset;
 }
 
 .hero-tag-row {
@@ -260,12 +268,12 @@ body {
 
 .quiz-card {
   padding: 30px 24px;
-  border: 1px solid rgba(var(--gold-brass-rgb), 0.58);
+  border: 1px solid rgba(var(--gold-brass-rgb), 0.42);
   border-radius: 10px;
-  background: linear-gradient(180deg, var(--card-mid), var(--card-dark));
+  background: linear-gradient(180deg, rgba(33, 9, 9, 0.74), rgba(20, 6, 6, 0.76));
   box-shadow:
-    0 22px 62px rgba(0, 0, 0, 0.52),
-    0 0 0 1px rgba(var(--gold-bronze-rgb), 0.28) inset;
+    0 12px 32px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(var(--gold-bronze-rgb), 0.2) inset;
 }
 
 .quiz-progress-wrap {
@@ -456,10 +464,10 @@ body {
 .result-main-frame {
   margin-top: 14px;
   padding: 20px 16px 22px;
-  border: 1px solid rgba(var(--role-accent-rgb), 0.75);
+  border: 1px solid rgba(var(--role-accent-rgb), 0.62);
   border-radius: 10px;
   position: relative;
-  background: rgba(28, 9, 9, 0.8);
+  background: rgba(24, 7, 7, 0.68);
 }
 
 .result-avatar-wrap {
@@ -582,13 +590,13 @@ body {
 .result-author-frame {
   margin-top: 14px;
   padding: 14px 12px 12px;
-  border: 1px solid rgba(var(--gold-brass-rgb), 0.42);
+  border: 1px solid rgba(var(--gold-brass-rgb), 0.34);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background: rgba(28, 8, 8, 0.75);
+  background: rgba(24, 7, 7, 0.6);
 }
 
 .export-author-divider {
@@ -802,7 +810,7 @@ body {
 
 @media (max-width: 600px) {
   .page {
-    align-items: flex-start;
+    align-items: center;
     padding: 10px;
   }
 
