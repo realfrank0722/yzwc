@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>你能活几集？- 雍正王朝权谋人格测试</title>
+    <meta
+      name="description"
+      content="看看谁是我大清第一巴图鲁"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <div id="home-page" class="screen screen-active">
+        <section class="hero-card">
+          <p class="hero-tag-row" role="presentation">
+            <span class="hero-tag-line" aria-hidden="true"></span>
+            <span class="hero-tag-text">沉浸式测试</span>
+            <span class="hero-tag-line" aria-hidden="true"></span>
+          </p>
+          <h1 class="hero-title">九子夺嫡</h1>
+          <p class="hero-subtitle hero-subtitle-main">谁是大清第一巴图鲁</p>
+          <p class="hero-subtitle hero-subtitle-sub">看看你能活几集</p>
+
+          <blockquote class="hero-quote">
+            <p>争是不争，不争是争</p>
+            <p>夫唯不争，天下莫能与之争</p>
+          </blockquote>
+
+          <p class="hero-intro">
+            庙堂之上，盈亏同源。本测试共计 40 道题目，旨在测诸君在诡谲政局下的真实性格底色，掀开底牌看看你到底是谁？
+          </p>
+
+          <button id="startBtn" class="start-btn" type="button">奉旨入局</button>
+
+          <p class="author-line">作者：36</p>
+          <p class="id-line">小红书 id:xxx　　douyin id:xxx</p>
+          <p class="copyright-line">
+            本测试纯属个人兴趣制作，无任何商业用途，如涉及版权问题请联系作者删除
+          </p>
+
+          <p id="statusText" class="status-text" aria-live="polite"></p>
+        </section>
+      </div>
+
+      <div id="quiz-page" class="screen" style="display: none;">
+        <section class="quiz-card">
+          <div class="quiz-progress-wrap">
+            <span class="quiz-progress-label">沉浸测试</span>
+            <div class="quiz-progress-track" aria-hidden="true">
+              <div id="progressBarFill" class="quiz-progress-fill"></div>
+            </div>
+            <span id="progressText" class="quiz-progress-number">1/40</span>
+          </div>
+          <h2 id="questionText" class="quiz-question">题干加载中...</h2>
+          <div id="optionsContainer" class="options-container"></div>
+          <div class="quiz-nav">
+            <button id="prevBtn" class="nav-btn" type="button">上一题</button>
+            <button id="nextBtn" class="nav-btn nav-btn-primary" type="button">下一题</button>
+          </div>
+        </section>
+      </div>
+
+      <div id="result-page" class="screen" style="display: none;">
+        <section class="result-card">
+          <div id="poster-content">
+            <p class="result-label-row" role="presentation">
+              <span class="result-label-line" aria-hidden="true"></span>
+              <span class="result-label-text">测试结果</span>
+              <span class="result-label-line" aria-hidden="true"></span>
+            </p>
+            <p class="edict-line">狗儿的，让我看看你到底是谁</p>
+
+            <div class="result-main-frame">
+              <div class="result-avatar-wrap">
+                <img
+                  id="resultAvatarImg"
+                  class="result-avatar-img"
+                  alt=""
+                  width="92"
+                  height="92"
+                  decoding="async"
+                />
+                <span id="resultAvatarText" class="result-avatar-text">雍</span>
+              </div>
+              <p id="resultQuote" class="result-quote">“为政之道，在乎取舍。”</p>
+              <h2 id="resultName" class="result-name">雍正 (胤禛)</h2>
+              <p id="resultTitle" class="result-title">大清第一孤臣</p>
+              <div id="resultTraits" class="result-traits"></div>
+              <div class="result-desc-divider" aria-hidden="true"></div>
+              <p id="resultDesc" class="result-desc">判词加载中...</p>
+            </div>
+
+            <div class="result-author-frame">
+              <p class="result-author">作者：36</p>
+              <p class="result-social-row">
+                <span class="result-social-item">小红书：realFrank</span>
+                <span class="result-social-item">抖音：已卸载</span>
+              </p>
+              <button id="reward-btn" class="reward-btn" type="button">联系作者</button>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="ability-chart"></canvas>
+          </div>
+
+          <div class="result-actions">
+            <button id="save-poster-btn" class="result-btn result-btn-save" type="button">
+              生成海报
+            </button>
+            <button id="restart-btn" class="result-btn result-btn-restart" type="button">
+              重新测试
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div id="reward-modal" class="reward-modal" style="display: none;">
+      <div class="reward-modal-panel">
+        <button id="close-reward-modal" class="close-reward-modal" type="button" aria-label="关闭">
+          ×
+        </button>
+        <!-- 打赏二维码（本地素材） -->
+        <img
+          class="reward-qr"
+          src="assets/zuozhe.jpg"
+          alt="打赏二维码"
+          loading="lazy"
+          onerror="this.alt='打赏二维码加载失败，请检查 assets/zuozhe.jpg 路径';"
+        />
+      </div>
+    </div>
+
+    <script src="js/questions.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
