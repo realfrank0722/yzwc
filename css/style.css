@@ -35,19 +35,13 @@ body {
   padding: 0;
   min-height: 100%;
   width: 100%;
-  background-color: var(--black-red);
+  background-color: #220808;
 }
 
 body {
   font-family: "Noto Serif SC", "STSong", "SimSun", "Microsoft YaHei", serif;
   color: var(--text-main);
-  background: linear-gradient(
-    180deg,
-    #240909 0%,
-    #220808 48%,
-    #200808 100%
-  );
-  background-attachment: fixed;
+  background: #220808;
   overscroll-behavior-y: none;
 }
 
