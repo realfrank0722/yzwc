@@ -333,6 +333,69 @@
     return next.filter(Boolean);
   }
 
+  function normalizeChinesePunctuation(text) {
+    return String(text || "")
+      .replace(/\s+/g, " ")
+      .replace(/:/g, "：")
+      .replace(/;/g, "；")
+      .replace(/,/g, "，")
+      .replace(/\?/g, "？")
+      .replace(/!/g, "！")
+      .replace(/\.\.\./g, "…")
+      .replace(/\s*([，。！？：；、])/g, "$1")
+      .trim();
+  }
+
+  function drawCenteredTextWithSpacing(ctx, text, centerX, y, spacing = 0) {
+    const chars = Array.from(String(text || ""));
+    if (chars.length === 0) return;
+    if (spacing <= 0) {
+      ctx.fillText(chars.join(""), centerX, y);
+      return;
+    }
+    const textWidth = ctx.measureText(chars.join("")).width;
+    const totalWidth = textWidth + spacing * Math.max(0, chars.length - 1);
+    let x = centerX - totalWidth / 2;
+    for (const ch of chars) {
+      ctx.fillText(ch, x, y);
+      x += ctx.measureText(ch).width + spacing;
+    }
+  }
+
+  function drawJustifiedLine(ctx, text, x, y, targetWidth, minExtraSpacing = 0.15) {
+    const chars = Array.from(String(text || ""));
+    if (chars.length === 0) return;
+    if (chars.length === 1) {
+      ctx.fillText(chars[0], x, y);
+      return;
+    }
+
+    const baseText = chars.join("");
+    const baseWidth = ctx.measureText(baseText).width;
+    const extra = targetWidth - baseWidth;
+    if (extra <= minExtraSpacing * (chars.length - 1)) {
+      ctx.fillText(baseText, x, y);
+      return;
+    }
+
+    const gapExtra = extra / (chars.length - 1);
+    let drawX = x;
+    for (let i = 0; i < chars.length; i += 1) {
+      const ch = chars[i];
+      ctx.fillText(ch, drawX, y);
+      drawX += ctx.measureText(ch).width + (i < chars.length - 1 ? gapExtra : 0);
+    }
+  }
+
+  function renderResultDesc(descText) {
+    const paragraphText = normalizeChinesePunctuation(descText) || "暂无判词。";
+    resultDesc.innerHTML = "";
+    const p = document.createElement("p");
+    p.className = "result-desc-paragraph";
+    p.textContent = paragraphText;
+    resultDesc.appendChild(p);
+  }
+
   function ensurePosterAvatarReady() {
     if (!resultAvatarImg.classList.contains("is-visible") || !resultAvatarImg.src) {
       return Promise.reject(new Error("未找到可用头像"));
@@ -360,7 +423,14 @@
       .map((n) => n.textContent?.trim())
       .filter(Boolean);
     const author = resultPage.querySelector(".result-author")?.textContent?.trim() || "作者：36";
-    const social = resultPage.querySelector(".result-social-row")?.textContent?.replace(/\s+/g, " ").trim() || "";
+    /** 海报底部社交文案：仅用 data 属性/常量，绝不读取页面上可点击的胶囊链接，避免导出成按钮样式或 emoji 文案 */
+    const posterRoot = document.getElementById("poster-content");
+    const posterAuthorLine = normalizeChinesePunctuation(
+      posterRoot?.getAttribute("data-poster-author-line")?.trim() || author || "作者:36"
+    );
+    const posterSocialLine = normalizeChinesePunctuation(
+      posterRoot?.getAttribute("data-poster-social-line")?.trim() || "小红书：5040605569 抖音：30709022806"
+    );
     const pageStyles = window.getComputedStyle(resultPage);
     const accentColor = pageStyles.getPropertyValue("--role-accent").trim() || "#d5b347";
     const accentRgbRaw = pageStyles.getPropertyValue("--role-accent-rgb").trim() || "213,179,71";
@@ -381,7 +451,7 @@
     const traitSidePadding = 26;
     const traitMaxW = contentW - 120;
 
-    measureCtx.font = '500 29px "Microsoft YaHei", serif';
+    measureCtx.font = '500 29px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
     const rows = [];
     let row = [];
     let rowW = 0;
@@ -399,7 +469,7 @@
     }
     if (row.length > 0) rows.push({ items: row, width: rowW });
 
-    measureCtx.font = 'italic 500 46px "STSong", serif';
+    measureCtx.font = 'italic 500 46px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
     const quoteText = quote.replace(/[“”"'`]/g, "");
     const quoteRawLines = splitTextLinesPreferPunctuation(
       measureCtx,
@@ -409,8 +479,10 @@
     const quoteAdjustedLines = optimizeQuoteLines(quoteRawLines, measureCtx, contentW - 140);
     const quoteLines = rebalanceLastLine(quoteAdjustedLines, 4);
 
-    measureCtx.font = '500 34px "Microsoft YaHei", serif';
-    const descLines = splitTextLines(measureCtx, desc, contentW - 118);
+    measureCtx.font = '400 31px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
+    const normalizedDesc = normalizeChinesePunctuation(desc);
+    const descRawLines = splitTextLines(measureCtx, normalizedDesc, contentW - 150);
+    const descLines = rebalanceLastLine(optimizeQuoteLines(descRawLines, measureCtx, contentW - 150), 8);
 
     const traitsBlockH = rows.length > 0 ? rows.length * pillH + (rows.length - 1) * traitRowGap + 28 : 0;
     const quoteBoxY = traitsStartY + traitsBlockH + 34;
@@ -441,13 +513,40 @@
     ctx.fillStyle = halo;
     ctx.fillRect(0, 0, canvas.width, 980);
 
-    ctx.fillStyle = "rgba(232,201,99,0.72)";
-    ctx.font = '600 42px "Microsoft YaHei", serif';
-    ctx.fillText(label, centerX, 132);
+    const labelY = 132;
+    const labelHalfGap = 120;
+    const labelLineLen = 190;
+    const labelLineLeftStart = centerX - labelHalfGap - labelLineLen;
+    const labelLineLeftEnd = centerX - labelHalfGap;
+    const labelLineRightStart = centerX + labelHalfGap;
+    const labelLineRightEnd = centerX + labelHalfGap + labelLineLen;
 
-    ctx.fillStyle = "rgba(244,228,188,0.98)";
-    ctx.font = '700 56px "Microsoft YaHei", serif';
-    ctx.fillText(edict, centerX, 204);
+    const leftLineGrad = ctx.createLinearGradient(labelLineLeftStart, 0, labelLineLeftEnd, 0);
+    leftLineGrad.addColorStop(0, "rgba(232,201,99,0)");
+    leftLineGrad.addColorStop(1, "rgba(232,201,99,0.62)");
+    ctx.strokeStyle = leftLineGrad;
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(labelLineLeftStart, labelY - 6);
+    ctx.lineTo(labelLineLeftEnd, labelY - 6);
+    ctx.stroke();
+
+    const rightLineGrad = ctx.createLinearGradient(labelLineRightStart, 0, labelLineRightEnd, 0);
+    rightLineGrad.addColorStop(0, "rgba(232,201,99,0.62)");
+    rightLineGrad.addColorStop(1, "rgba(232,201,99,0)");
+    ctx.strokeStyle = rightLineGrad;
+    ctx.beginPath();
+    ctx.moveTo(labelLineRightStart, labelY - 6);
+    ctx.lineTo(labelLineRightEnd, labelY - 6);
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(232,201,99,0.72)";
+    ctx.font = '600 32px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
+    ctx.fillText(label, centerX, labelY);
+
+    ctx.fillStyle = "rgba(232,201,99,0.95)";
+    ctx.font = '700 56px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
+    ctx.fillText(edict, centerX, 222);
 
     const avatarX = centerX;
     const avatarY = 420;
@@ -506,16 +605,16 @@
     }
 
     ctx.fillStyle = accentColor;
-    ctx.font = '700 90px "Microsoft YaHei", serif';
+    ctx.font = '700 90px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
     ctx.fillText(roleName, centerX, titleNameY);
 
     ctx.fillStyle = "rgba(232,201,99,0.92)";
-    ctx.font = '500 38px "Microsoft YaHei", serif';
+    ctx.font = '500 38px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
     ctx.fillText(roleTitle, centerX, titleBottomY);
 
     if (rows.length > 0) {
       let rowY = traitsStartY;
-      ctx.font = '500 29px "Microsoft YaHei", serif';
+      ctx.font = '500 29px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
       for (const r of rows) {
         let x = centerX - r.width / 2;
         for (const item of r.items) {
@@ -539,7 +638,7 @@
     ctx.strokeRect(contentX, quoteBoxY, contentW, quoteBoxH);
 
     ctx.fillStyle = "rgba(244,228,188,0.96)";
-    ctx.font = 'italic 500 46px "STSong", serif';
+    ctx.font = 'italic 500 46px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
     let quoteY = quoteStartY;
     for (let i = 0; i < quoteLines.length; i += 1) {
       const prefix = i === 0 ? "“" : "";
@@ -550,12 +649,25 @@
     }
 
     ctx.fillStyle = "rgba(223,197,144,0.96)";
-    ctx.font = '500 34px "Microsoft YaHei", serif';
+    ctx.font = '400 31px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
+    const descLineHeight = 52;
+    const descBlockW = contentW - 128;
+    const descX = centerX - descBlockW / 2;
+    const firstLineIndent = 62;
+    ctx.textAlign = "left";
     let descY = descStartY;
-    for (const line of descLines) {
-      ctx.fillText(line, centerX, descY);
-      descY += 50;
-    }
+    descLines.forEach((line, idx) => {
+      const drawX = idx === 0 ? descX + firstLineIndent : descX;
+      const lineWidth = idx === 0 ? descBlockW - firstLineIndent : descBlockW;
+      const isLastLine = idx === descLines.length - 1;
+      if (isLastLine || line.length < 10) {
+        ctx.fillText(line, drawX, descY);
+      } else {
+        drawJustifiedLine(ctx, line, drawX, descY, lineWidth);
+      }
+      descY += descLineHeight;
+    });
+    ctx.textAlign = "center";
 
     ctx.fillStyle = "rgba(20,7,7,0.9)";
     ctx.fillRect(contentX, infoY, contentW, infoH);
@@ -573,12 +685,26 @@
     ctx.lineTo(contentX + contentW - 70, infoY + 24);
     ctx.stroke();
 
-    ctx.fillStyle = "rgba(247,232,196,0.98)";
-    ctx.font = '600 48px "Microsoft YaHei", serif';
-    ctx.fillText(author, centerX, infoY + 92);
-    ctx.fillStyle = "rgba(232,201,99,0.92)";
-    ctx.font = '500 36px "Microsoft YaHei", serif';
-    ctx.fillText(social, centerX, infoY + 156);
+    const socialMatch = posterSocialLine.match(/^(小红书：\S+)\s+(抖音：\S+)$/);
+    const socialOneLine = socialMatch
+      ? `${socialMatch[1]}    ${socialMatch[2]}`
+      : posterSocialLine;
+
+    // 底部信息采用两行居中排版，字重和行距更克制，视觉更精致。
+    const metaAuthorY = infoY + 78;
+    const metaSocialY = metaAuthorY + 54;
+
+    ctx.fillStyle = "rgba(247,232,196,0.97)";
+    ctx.font = '500 34px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
+    drawCenteredTextWithSpacing(ctx, posterAuthorLine, centerX, metaAuthorY, 0.8);
+
+    ctx.fillStyle = "rgba(232,201,99,0.94)";
+    ctx.font = '400 30px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
+    drawCenteredTextWithSpacing(ctx, socialOneLine, centerX, metaSocialY, 0.7);
+
+    ctx.fillStyle = "rgba(214, 188, 122, 0.9)";
+    ctx.font = '400 26px "Noto Serif SC", "Source Han Serif SC", "SimSun", serif';
+    drawCenteredTextWithSpacing(ctx, "关注解锁更多", centerX, metaSocialY + 42, 0.6);
 
     return canvas;
   }
@@ -873,7 +999,7 @@
     resultName.textContent = finalProfile.name;
     resultName.style.color = dynamicNameColor;
     resultTitle.textContent = finalProfile.title;
-    resultDesc.textContent = finalProfile.desc;
+    renderResultDesc(finalProfile.desc);
 
     const traits = Array.isArray(finalProfile.traits) ? finalProfile.traits : [];
     resultTraits.innerHTML = "";
