@@ -40,7 +40,6 @@ html {
   background-image: radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
   background-repeat: no-repeat;
   background-size: cover;
-  overscroll-behavior-y: none;
 }
 
 body {
@@ -56,7 +55,6 @@ body {
   background-image: radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
   background-repeat: no-repeat;
   background-size: cover;
-  overscroll-behavior-y: none;
 }
 
 body::before {
@@ -384,10 +382,6 @@ body::before {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
 }
 
-.result-social-poster-text {
-  display: none;
-}
-
 .copyright-line {
   margin: 0 auto;
   max-width: 660px;
@@ -711,10 +705,21 @@ body::before {
 
 .result-desc {
   margin: 0 auto;
-  max-width: 680px;
+  width: min(85%, 600px);
+  max-width: 600px;
   font-size: clamp(13px, 3vw, 17px);
-  line-height: 1.88;
+  line-height: 1.95;
+  letter-spacing: 0.05em;
   color: var(--text-sub);
+  text-align: justify;
+  text-justify: inter-ideograph;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+.result-desc-paragraph {
+  margin: 0;
+  text-indent: 2em;
 }
 
 .chart-container {
