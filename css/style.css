@@ -1,4 +1,5 @@
 :root {
+  color-scheme: dark;
   --black-red: #160707;
   --bg-deep-red: #2b0b0b;
   --bg-red: #4a1010;
@@ -29,26 +30,45 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+html {
   margin: 0;
   padding: 0;
-  height: 100%;
+  width: 100%;
   min-height: 100%;
   min-height: 100dvh;
-  width: 100%;
   background-color: #1b0606;
-  background:
-    radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
+  background-image: radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  overscroll-behavior-y: none;
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-height: 100%;
+  min-height: 100dvh;
+  width: 100%;
   font-family: "Noto Serif SC", "Source Han Serif SC", "宋体", "SimSun", serif;
   color: var(--text-main);
-  min-height: 100dvh;
-  background:
-    radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
+  background-color: #1b0606;
+  background-image: radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
   overscroll-behavior-y: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #1b0606;
+  background-image: radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .page {
@@ -63,9 +83,12 @@ body {
 }
 
 @supports (-webkit-touch-callout: none) {
-  html,
-  body {
+  html {
     height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
+  }
+
+  body {
     min-height: -webkit-fill-available;
   }
 
@@ -294,34 +317,75 @@ body {
   color: rgba(var(--gold-edict-rgb), 0.92);
 }
 
+.id-line-social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.id-line-social .author-link-btn {
+  padding: 5px 14px;
+  gap: 5px;
+  font-size: 0.78em;
+  letter-spacing: 0.04em;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.16);
+}
+
 .author-link-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 24px;
   margin: 2px 0;
-  border: 1px solid rgba(167, 58, 58, 0.45);
+  border: none;
   border-radius: 50px;
-  color: #c24444;
   text-decoration: none;
   font-family: inherit;
   font-size: 0.9em;
   letter-spacing: 0.06em;
   line-height: 1.2;
-  background: rgba(120, 20, 20, 0.2);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-  transition: transform 0.18s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition: transform 0.18s ease, background 0.2s ease, color 0.2s ease;
 }
 
-.author-link-btn:hover {
+.author-link-btn--xhs {
+  color: #c24444;
+  background: rgba(120, 20, 20, 0.2);
+}
+
+.author-link-btn--xhs:hover {
   transform: translateY(-1px);
-  border-color: rgba(194, 68, 68, 0.7);
   color: #a73a3a;
   background: rgba(120, 20, 20, 0.28);
 }
 
+.author-link-btn--dy {
+  color: #2d8aab;
+  background: rgba(25, 90, 110, 0.22);
+}
+
+.author-link-btn--dy:hover {
+  transform: translateY(-1px);
+  color: #236f87;
+  background: rgba(25, 90, 110, 0.3);
+}
+
 .author-link-btn:active {
   transform: translateY(0);
+}
+
+.result-social-row .author-link-btn {
+  padding: 10px 28px;
+  gap: 9px;
+  font-size: 1.02em;
+  letter-spacing: 0.07em;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+.result-social-poster-text {
+  display: none;
 }
 
 .copyright-line {
