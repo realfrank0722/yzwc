@@ -33,27 +33,45 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   min-height: 100%;
+  min-height: 100dvh;
   width: 100%;
+  background-color: #1b0606;
   background:
-    radial-gradient(circle at 50% 38%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
+    radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
 }
 
 body {
   font-family: "Noto Serif SC", "Source Han Serif SC", "宋体", "SimSun", serif;
   color: var(--text-main);
+  min-height: 100dvh;
   background:
-    radial-gradient(circle at 50% 38%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
+    radial-gradient(circle at 50% 50%, #3a1111 0%, #2a0c0c 42%, #1b0606 100%);
   overscroll-behavior-y: none;
 }
 
 .page {
+  min-height: 100vh;
+  min-height: 100svh;
   min-height: 100dvh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: clamp(10px, 2.6vw, 24px);
+}
+
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
+  }
+
+  .page {
+    min-height: -webkit-fill-available;
+  }
 }
 
 .screen {
@@ -277,25 +295,29 @@ body {
 }
 
 .author-link-btn {
-  display: inline-block;
-  padding: 4px 10px;
-  border: 1px solid rgba(var(--gold-brass-rgb), 0.62);
-  border-radius: 999px;
-  color: rgba(var(--gold-foil-rgb), 0.94);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  margin: 2px 0;
+  border: 1px solid rgba(167, 58, 58, 0.45);
+  border-radius: 50px;
+  color: #c24444;
   text-decoration: none;
-  font-size: 0.88em;
-  letter-spacing: 0.03em;
-  line-height: 1.25;
-  background: rgba(66, 15, 15, 0.58);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  font-family: inherit;
+  font-size: 0.9em;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  background: rgba(120, 20, 20, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   transition: transform 0.18s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .author-link-btn:hover {
   transform: translateY(-1px);
-  border-color: rgba(var(--gold-saffron-rgb), 0.78);
-  color: rgba(var(--gold-foil-rgb), 0.99);
-  background: rgba(90, 20, 20, 0.68);
+  border-color: rgba(194, 68, 68, 0.7);
+  color: #a73a3a;
+  background: rgba(120, 20, 20, 0.28);
 }
 
 .author-link-btn:active {
