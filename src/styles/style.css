@@ -936,18 +936,24 @@ body {
 
 @media (max-width: 768px) {
   .about-main {
+    display: block;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
   }
 
   .about-article-wrap {
-    min-width: 760px;
-    margin: 0 auto;
+    width: max-content;
+    min-width: max-content;
+    margin: 0;
+    padding-right: 28px;
   }
 
   .about-article-vertical {
     padding-left: 28px;
+    padding-right: 28px;
   }
 }
 
