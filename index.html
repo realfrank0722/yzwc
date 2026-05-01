@@ -1,0 +1,570 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href="assets/shared/icons/favicon.svg" />
+    <title>测测你是谁？- 经典影视剧人物性格测试</title>
+    <meta name="description" content="多部影视剧可选" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="src/styles/style.css" />
+  </head>
+  <body>
+    <div id="lobby-page" class="screen screen-active">
+      <section class="lobby-shell">
+        <header class="lobby-navbar">
+          <div class="lobby-brand-wrap" aria-label="网站品牌">
+            <svg class="lobby-brand-logo" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M950.857143 365.714286V0H585.142857v73.142857H512v146.285714H438.857143V0H73.142857v73.142857H0v877.714286h146.285714v73.142857h731.428572v-73.142857h146.285714V365.714286h-73.142857z" fill="#000000"></path>
+              <path d="M877.714286 73.142857H658.285714v73.142857H585.142857v146.285715H365.714286V73.142857H146.285714v73.142857H73.142857v731.428572h146.285714v73.142857h585.142858v-73.142857h146.285714V438.857143h-73.142857V73.142857z" fill="#FFBD5A"></path>
+              <path d="M804.571429 585.142857H292.571429v73.142857H146.285714v73.142857H73.142857v146.285715h146.285714v73.142857h585.142858v-73.142857h146.285714v-73.142857h-73.142857v-73.142858h-73.142857V585.142857z" fill="#FFFFFF"></path>
+              <path d="M512 950.857143h146.285714V658.285714H512z" fill="#FB7C7C"></path>
+              <path d="M438.857143 512H219.428571V438.857143h219.428572v73.142857zM804.571429 512H585.142857V438.857143h219.428572v73.142857z" fill="#FFFFFF"></path>
+              <path d="M365.714286 512H292.571429V438.857143h73.142857v73.142857zM658.285714 512h73.142857V438.857143H658.285714v73.142857zM658.285714 658.285714V512H512v146.285714H365.714286v73.142857h146.285714V658.285714h146.285714zM658.285714 658.285714v73.142857h73.142857V658.285714H658.285714z" fill="#000000"></path>
+            </svg>
+            <p class="lobby-navbar-brand">realFrank</p>
+          </div>
+          <div class="lobby-menu-wrap">
+            <button id="lobbyMenuBtn" class="lobby-menu-btn" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="lobbyMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div id="lobbyMenu" class="lobby-menu" hidden>
+              <a class="lobby-menu-item" href="#about">关于作者</a>
+            </div>
+          </div>
+        </header>
+        <section class="lobby-hero">
+          <picture class="lobby-hero-bg-wrap" aria-hidden="true">
+            <source media="(min-width: 768px)" srcset="assets/shared/hero/herocp.png" />
+            <img class="lobby-hero-bg" src="assets/shared/hero/hero.png" alt="" />
+          </picture>
+          <div class="lobby-hero-inner">
+            <h1 class="lobby-hero-title">经典影视剧性格测试</h1>
+            <p class="lobby-hero-subtitle">看剧总是代入？一起来测测看，哪个人物最像你。</p>
+            <p class="lobby-hero-subtitle lobby-hero-subtitle-secondary">10分钟，身临其境体验每一次选择。</p>
+            <button id="pickScreenplayBtn" class="lobby-hero-cta" type="button">挑选测试剧本</button>
+            <p id="statusText" class="status-text" aria-live="polite"></p>
+          </div>
+          <div class="lobby-wave" aria-hidden="true">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+              <path d="M0,100 L370,44 L580,60 L820,50 L980,76 L1180,46 L1440,94 L1440,120 L0,120 Z"></path>
+            </svg>
+          </div>
+        </section>
+        <section class="lobby-stats">
+          <article class="lobby-stat">
+            <p class="lobby-stat-value">1k+</p>
+            <p class="lobby-stat-label">累计参与</p>
+          </article>
+          <article class="lobby-stat">
+            <p class="lobby-stat-value lobby-stat-value-gold">98.5%</p>
+            <p class="lobby-stat-label">好评准确率</p>
+          </article>
+        </section>
+        <section class="character-showcase" aria-label="角色预告">
+          <header class="showcase-header">
+            <p class="showcase-kicker">CHARACTERS</p>
+            <h2 class="showcase-title">热门人物</h2>
+          </header>
+          <div id="showcaseTrack" class="showcase-track" tabindex="0" aria-label="角色预告轮播">
+            <article class="showcase-card" style="--showcase-accent: #4d566d;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/zhenhuan/avatars/huanghou.jpg" alt="皇后头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">皇后</h3>
+              </div>
+              <p class="showcase-quote">“人心都难测，何况是畜类，越是亲近温顺就越不容易留神呐。”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #2f6b4a;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/yongzheng/avatars/liwei.jpg" alt="李卫头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">李卫</h3>
+              </div>
+              <p class="showcase-quote">“奴才李卫狗儿率老婆翠儿，合主子，富普，盖头了”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #6f4f7e;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/zhenhuan/avatars/zhenhuan.jpg" alt="甄嬛头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">甄嬛</h3>
+              </div>
+              <p class="showcase-quote">“逆风如解意，容易莫摧残。”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #5c4d7a;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/yongzheng/avatars/wusidao.jpg" alt="邬思道头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">邬思道</h3>
+              </div>
+              <p class="showcase-quote">“争是不争，不争是争。夫唯不争，天下莫能与之争。”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #8a3b54;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/zhenhuan/avatars/qiguiren.jpg" alt="祺贵人头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">祺贵人</h3>
+              </div>
+              <p class="showcase-quote">“皇上，你听听臣妾心慌不慌。”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #2a4f7a;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/yongzheng/avatars/yinsi.jpg" alt="八阿哥头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">八阿哥</h3>
+              </div>
+              <p class="showcase-quote">“刚才您说传位给谁，我们都没听见，您再说一遍，您再说一遍”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #1f5c45;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/yongzheng/avatars/yinxiang.jpg" alt="十三爷头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">十三爷</h3>
+              </div>
+              <p class="showcase-quote">“永定河里的王八都比你这一色人少的多了！”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #b8860b;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/yongzheng/avatars/kangxi.jpg" alt="康熙头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">康熙</h3>
+              </div>
+              <p class="showcase-quote">“滴滴答答，就是时时刻刻，是啊，人生有多少时刻呢？”</p>
+            </article>
+            <article class="showcase-card" style="--showcase-accent: #7a1218;">
+              <span class="showcase-card-topline" aria-hidden="true"></span>
+              <div class="showcase-card-head">
+                <div class="showcase-avatar-wrap">
+                  <img class="showcase-avatar" src="assets/screenplays/yongzheng/avatars/yongzheng.jpg" alt="雍正头像" loading="lazy" decoding="async" />
+                </div>
+                <h3 class="showcase-name">雍正</h3>
+              </div>
+              <p class="showcase-quote">“朕是当了四十五年的皇阿哥，水里进，火里出，六部办差，外省民间闯荡出来的铁骨头，硬汉子！”</p>
+            </article>
+          </div>
+          <div class="showcase-controls" aria-label="角色轮播控制">
+            <button id="showcasePrevBtn" class="showcase-arrow-btn" type="button" aria-label="上一位角色">‹</button>
+            <button id="showcaseNextBtn" class="showcase-arrow-btn" type="button" aria-label="下一位角色">›</button>
+          </div>
+          <div id="showcaseDots" class="showcase-dots" aria-hidden="true">
+            <span class="showcase-dot is-active"></span>
+            <span class="showcase-dot"></span>
+            <span class="showcase-dot"></span>
+            <span class="showcase-dot"></span>
+            <span class="showcase-dot"></span>
+            <span class="showcase-dot"></span>
+            <span class="showcase-dot"></span>
+            <span class="showcase-dot"></span>
+            <span class="showcase-dot"></span>
+          </div>
+        </section>
+        <footer class="lobby-footer">
+          <div class="lobby-footer-contact" aria-label="联系方式">
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M834.446 213.447H194.105c-50.176 0-91.022 40.846-91.022 91.022v423.026c0 50.176 40.846 91.022 91.022 91.022h640.341c50.176 0 91.022-40.846 91.022-91.022V304.469c0-50.176-40.846-91.022-91.022-91.022z m36.409 514.048c0 20.025-16.384 36.409-36.409 36.409H194.105c-20.025 0-36.409-16.384-36.409-36.409V304.469c0-20.025 16.384-36.409 36.409-36.409h640.341c20.025 0 36.409 16.384 36.409 36.409v423.026z"></path><path d="M786.773 358.059L514.275 529.977 241.777 358.059c-12.743-8.078-29.582-4.21-37.661 8.533-8.078 12.743-4.21 29.582 8.533 37.661l286.72 180.907c4.551 2.845 9.557 4.21 14.563 4.21h0.91c5.006 0 10.013-1.365 14.563-4.21l286.72-180.907c12.743-8.078 16.611-24.917 8.533-37.661-8.306-12.857-25.145-16.611-37.888-8.533z"></path>
+                </svg>
+              </span>
+              <span>realFrank0722@gmail.com</span>
+            </p>
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M508.928 522.24c-83.968 0-151.552-67.584-151.552-151.552s67.584-151.552 151.552-151.552S660.48 286.72 660.48 370.688 592.896 522.24 508.928 522.24z m0-241.664c-50.176 0-90.112 40.96-90.112 90.112s40.96 90.112 90.112 90.112c50.176 0 90.112-40.96 90.112-90.112s-39.936-90.112-90.112-90.112z"></path><path d="M512 992.256c-184.32 0-371.712-49.152-371.712-143.36 0-57.344 70.656-103.424 191.488-126.976-82.944-97.28-166.912-224.256-166.912-346.112 0-189.44 154.624-344.064 344.064-344.064s344.064 154.624 344.064 344.064c0 137.216-106.496 281.6-196.608 378.88-1.024 1.024-20.48 21.504-36.864 38.912-12.288 13.312-24.576 25.6-25.6 26.624-11.264 12.288-30.72 13.312-43.008 1.024-12.288-11.264-13.312-30.72-2.048-43.008 1.024-1.024 12.288-13.312 25.6-26.624 16.384-17.408 34.816-35.84 35.84-37.888 81.92-89.088 180.224-220.16 180.224-336.896 0-155.648-126.976-282.624-282.624-282.624S226.304 220.16 226.304 375.808c0 119.808 102.4 254.976 188.416 346.112 8.192 8.192 10.24 20.48 6.144 31.744s-13.312 18.432-25.6 20.48c-136.192 16.384-194.56 57.344-194.56 74.752 0 24.576 105.472 81.92 310.272 81.92s310.272-57.344 310.272-81.92c0-10.24-22.528-32.768-83.968-52.224a31.09888 31.09888 0 0 1 18.432-59.392c105.472 32.768 128 78.848 128 110.592 0 95.232-187.392 144.384-371.712 144.384z"></path>
+                </svg>
+              </span>
+              <span>上海·中国</span>
+            </p>
+          </div>
+          <div class="lobby-socials" aria-label="社交链接">
+            <a class="lobby-social-btn lobby-social-btn-xhs" href="https://xhslink.com/m/AfYKCMf6dEX" target="_blank" rel="noopener noreferrer" aria-label="小红书">
+              <svg t="1777388860699" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11964">
+                <path d="M787.456 442.368h-18.944v41.984h27.136V450.56c0-4.608-3.584-8.192-8.192-8.192zM512 0z" fill="currentColor" p-id="11965"></path>
+                <path d="M512 0C229.376 0 0.512 229.376 0.512 512S229.376 1024 512 1024s511.488-228.864 511.488-512c0-282.624-228.864-512-511.488-512z m342.528 414.72c0-14.336 11.776-26.112 26.112-26.112s26.112 11.776 26.112 26.112-11.776 26.112-26.112 26.112h-26.112V414.72zM394.24 460.8l44.032-88.576h51.712l-36.864 70.656c-1.536 3.584 0.512 7.168 4.608 7.168h3.072l3.072-6.144h51.712l-44.544 87.04c-1.536 3.584 0.512 7.168 4.608 7.168h29.696l-23.552 43.008H421.888c-25.6-1.024-9.728-32.256-9.728-32.256l27.136-55.808h-35.84C378.368 492.032 394.24 460.8 394.24 460.8z m-248.32 162.816l-29.696-54.272s17.408-54.272 12.8-125.952H184.32s0.512 163.328-38.4 180.224z m126.976-11.776s-1.536 40.448-36.864 40.448h-17.408s-34.304-3.584-34.304-44.032h34.816V371.712h53.76v240.128z m34.816-168.448h54.784c-4.608 71.68 12.8 125.952 12.8 125.952l-29.696 54.272c-38.4-16.896-37.888-180.224-37.888-180.224z m79.872 208.896c-9.216 0-13.312-6.144-13.312-6.144l26.624-51.2c4.608 4.608 10.752 3.584 10.752 3.584h70.144l-28.16 53.76H387.584z m275.968-0.512H481.792l25.6-51.712h51.2V443.392h-34.304V388.608h121.856v54.784h-33.792v156.672h51.712v51.712z m198.656 0h-13.824c-25.088 0-45.056-19.968-45.056-45.056h50.176v-56.32c0-7.168-5.632-12.8-12.8-12.8h-72.192v114.176h-52.736V537.6h-52.736V483.84h52.736v-41.984h-33.28V388.608h33.28v-16.896h52.736v16.896h20.48c33.28 0 59.904 26.624 59.904 59.904v35.328h6.144c28.672 0 51.712 23.04 51.712 51.712v71.168c0.512 25.088-19.456 45.056-44.544 45.056z" fill="currentColor" p-id="11966"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-douyin" href="https://v.douyin.com/9nLReNOo6vU/" target="_blank" rel="noopener noreferrer" aria-label="抖音">
+              <svg t="1777389546069" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15699">
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="currentColor" p-id="15700"></path>
+                <path d="M759.296 448.512c-48.896 0-96.256-15.872-135.424-45.056v204.8c0 104.448-80.64 189.184-179.968 189.184s-179.968-84.736-179.968-189.184 80.64-189.184 179.968-189.184c9.984 0 19.712 0.768 28.928 2.56V529.92c-8.96-3.584-18.688-5.376-28.16-5.376-44.288 0-80.384 37.632-80.384 84.48s36.096 84.48 80.384 84.48 80.128-37.632 80.128-84.48V202.24h100.352c0 78.336 60.416 141.568 134.656 141.568v104.704h-0.512" fill="#FFFFFF" p-id="15701"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-wechat" href="#" aria-label="微信">
+              <svg t="1777388923968" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13107">
+                <path d="M571.648 511.94c-10.257 0-20.517 9.525-20.517 21.25 0 9.527 10.255 19.053 20.517 19.053 15.393 0 26.385-9.527 26.385-19.053 0-11.724-10.99-21.25-26.385-21.25v0zM504.225 413c16.123 0 26.385-10.257 26.385-25.651 0-16.123-10.261-25.649-26.385-25.649-15.39 0-30.048 9.527-30.048 25.649-0.001 15.396 14.659 25.651 30.048 25.651v0zM512.287 62.492c-248.427 0-449.813 201.386-449.813 449.813 0 248.425 201.386 449.812 449.813 449.812 248.425 0 449.812-201.386 449.812-449.812 0.001-248.427-201.385-449.813-449.812-449.813v0zM427.275 626.265c-27.119 0-46.906-4.394-72.556-11.725l-74.019 37.38 21.257-63.031c-52.035-36.64-82.818-82.811-82.818-139.243 0-99.67 93.808-175.889 208.137-175.889 101.135 0 191.279 60.097 208.867 145.113-7.328-1.469-13.926-2.199-19.788-2.199-99.67 0-176.619 74.75-176.619 164.894 0 15.388 2.199 29.313 5.863 43.972-5.863 0.728-12.461 0.728-18.324 0.728v0zM732.882 698.085l14.655 52.77-55.697-31.512c-21.252 4.394-41.773 10.99-63.025 10.99-98.206 0-175.889-67.422-175.889-150.968 0-83.547 77.685-150.97 175.889-150.97 93.072 0 176.619 67.423 176.619 150.97 0 46.9-31.512 88.673-72.552 118.721v0zM359.117 361.7c-15.39 0-31.512 9.527-31.512 25.649 0 15.395 16.122 25.656 31.512 25.656 14.66 0 26.385-10.261 26.385-25.656 0-16.122-11.725-25.649-26.385-25.649v0zM686.712 511.94c-10.995 0-20.522 9.525-20.522 21.25 0 9.527 9.527 19.053 20.522 19.053 14.655 0 25.649-9.527 25.649-19.053 0-11.724-10.994-21.25-25.649-21.25v0zM686.712 511.94z" p-id="13108" fill="currentColor"></path>
+              </svg>
+            </a>
+          </div>
+          <p class="lobby-copyright">本测试纯属个人兴趣制作，如涉及版权问题请联系作者删除。</p>
+        </footer>
+      </section>
+    </div>
+
+    <div id="intro-modal" class="intro-modal hidden" hidden>
+      <div id="introOverlay" class="intro-overlay">
+        <section class="intro-panel" role="dialog" aria-modal="true" aria-label="选择测试剧本">
+          <p class="intro-panel-floating-title">选择你的剧本</p>
+          <button id="closeIntroModalBtn" class="intro-close-btn" type="button" aria-label="关闭弹窗">×</button>
+          <div class="intro-track-wrap">
+            <div id="introTrack" class="intro-track" tabindex="0" aria-label="剧本选择">
+            <article class="intro-card">
+              <span class="intro-card-marker" aria-hidden="true">
+                <svg class="intro-card-marker-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M979.456 523.264l-99.328-66.048-95.744-382.464c-4.608-17.92-20.48-30.208-38.912-30.208-3.072 0-6.656 0.512-9.728 1.024l-4.608 1.536-223.232 83.456L284.16 46.592c-4.608-1.536-9.216-2.56-13.824-2.56-16.384 0-31.744 10.24-37.376 26.112l-1.536 4.608-95.232 381.952-99.84 66.56c-14.848 10.24-21.504 27.648-15.872 45.056 5.12 17.408 20.48 28.672 38.4 28.672h112.64V829.44c0 29.184 18.432 54.784 45.568 64.512l267.776 96.768c7.68 2.56 15.36 4.096 23.552 4.096 8.192 0 15.872-1.536 23.552-4.096l248.832-89.6 32.256 52.224c6.656 11.264 18.944 18.432 31.744 18.432 6.656 0 12.8-1.536 18.432-5.12 8.704-5.12 14.848-12.8 17.408-22.528 2.56-9.728 1.024-19.456-3.584-28.16-0.512-0.512-0.512-1.024-1.024-1.536l-35.84-58.368c3.584-8.704 5.632-17.92 5.632-27.136v-120.832c0-2.048 0-4.096-0.512-6.144 13.824-28.16 21.504-59.392 21.504-91.136 0-4.608 0-9.728-0.512-14.848h92.16c17.92 0 33.28-11.264 38.4-28.672 4.096-16.384-2.048-33.792-17.408-44.032z m-446.464 88.064c0-70.144 57.344-127.488 127.488-127.488s127.488 57.344 127.488 127.488-57.344 127.488-127.488 127.488-127.488-57.344-127.488-127.488z m140.8-204.288h-3.584c-3.584 0-7.168-0.512-11.264-0.512-37.888 0-74.752 10.24-107.008 30.208-10.24 6.144-19.968 13.824-29.696 22.016H211.968l81.92-329.728 200.192 75.264c9.216 3.584 18.944 3.584 28.16 0l200.192-75.264 82.432 329.728h-7.168c-33.28-29.696-74.24-47.616-118.784-51.2h-2.048l-3.072-0.512z m-429.056 189.952h209.92v0.512c0 3.072 0 6.144 0.512 9.216v4.608c0 34.816 9.216 69.632 26.112 99.84 1.024 2.56 2.048 4.608 3.072 7.168 24.576 39.936 60.928 69.632 104.448 85.504 22.528 8.192 46.592 12.8 71.168 12.8 20.992 0 41.984-3.072 61.952-9.728l18.432 30.208-232.96 83.968-263.168-94.72v-229.376z"></path>
+                </svg>
+              </span>
+              <div class="intro-card-main">
+                <div class="intro-card-info">
+                  <h2 class="intro-card-title">雍正王朝</h2>
+                  <p class="intro-card-subtitle">题目偏职场权谋 | 难度：⭐⭐⭐</p>
+                  <div class="intro-card-meta-row">
+                    <p class="intro-card-tested">1k+已测 🔥🔥🔥</p>
+                    <button class="intro-card-cta screenplay-enter-btn" data-screenplay="yongzheng" type="button">开始测试</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="intro-card">
+              <span class="intro-card-marker" aria-hidden="true">
+                <svg class="intro-card-marker-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M979.456 523.264l-99.328-66.048-95.744-382.464c-4.608-17.92-20.48-30.208-38.912-30.208-3.072 0-6.656 0.512-9.728 1.024l-4.608 1.536-223.232 83.456L284.16 46.592c-4.608-1.536-9.216-2.56-13.824-2.56-16.384 0-31.744 10.24-37.376 26.112l-1.536 4.608-95.232 381.952-99.84 66.56c-14.848 10.24-21.504 27.648-15.872 45.056 5.12 17.408 20.48 28.672 38.4 28.672h112.64V829.44c0 29.184 18.432 54.784 45.568 64.512l267.776 96.768c7.68 2.56 15.36 4.096 23.552 4.096 8.192 0 15.872-1.536 23.552-4.096l248.832-89.6 32.256 52.224c6.656 11.264 18.944 18.432 31.744 18.432 6.656 0 12.8-1.536 18.432-5.12 8.704-5.12 14.848-12.8 17.408-22.528 2.56-9.728 1.024-19.456-3.584-28.16-0.512-0.512-0.512-1.024-1.024-1.536l-35.84-58.368c3.584-8.704 5.632-17.92 5.632-27.136v-120.832c0-2.048 0-4.096-0.512-6.144 13.824-28.16 21.504-59.392 21.504-91.136 0-4.608 0-9.728-0.512-14.848h92.16c17.92 0 33.28-11.264 38.4-28.672 4.096-16.384-2.048-33.792-17.408-44.032z m-446.464 88.064c0-70.144 57.344-127.488 127.488-127.488s127.488 57.344 127.488 127.488-57.344 127.488-127.488 127.488-127.488-57.344-127.488-127.488z m140.8-204.288h-3.584c-3.584 0-7.168-0.512-11.264-0.512-37.888 0-74.752 10.24-107.008 30.208-10.24 6.144-19.968 13.824-29.696 22.016H211.968l81.92-329.728 200.192 75.264c9.216 3.584 18.944 3.584 28.16 0l200.192-75.264 82.432 329.728h-7.168c-33.28-29.696-74.24-47.616-118.784-51.2h-2.048l-3.072-0.512z m-429.056 189.952h209.92v0.512c0 3.072 0 6.144 0.512 9.216v4.608c0 34.816 9.216 69.632 26.112 99.84 1.024 2.56 2.048 4.608 3.072 7.168 24.576 39.936 60.928 69.632 104.448 85.504 22.528 8.192 46.592 12.8 71.168 12.8 20.992 0 41.984-3.072 61.952-9.728l18.432 30.208-232.96 83.968-263.168-94.72v-229.376z"></path>
+                </svg>
+              </span>
+              <div class="intro-card-main">
+                <div class="intro-card-info">
+                  <h2 class="intro-card-title">甄嬛传</h2>
+                  <p class="intro-card-subtitle">题目偏个人感受 | 难度：⭐⭐</p>
+                  <div class="intro-card-meta-row">
+                    <p class="intro-card-tested">1k+已测 🔥🔥🔥🔥</p>
+                    <button class="intro-card-cta screenplay-enter-btn" data-screenplay="zhenhuan" type="button">开始测试</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="intro-card">
+              <span class="intro-card-marker" aria-hidden="true">
+                <svg class="intro-card-marker-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M979.456 523.264l-99.328-66.048-95.744-382.464c-4.608-17.92-20.48-30.208-38.912-30.208-3.072 0-6.656 0.512-9.728 1.024l-4.608 1.536-223.232 83.456L284.16 46.592c-4.608-1.536-9.216-2.56-13.824-2.56-16.384 0-31.744 10.24-37.376 26.112l-1.536 4.608-95.232 381.952-99.84 66.56c-14.848 10.24-21.504 27.648-15.872 45.056 5.12 17.408 20.48 28.672 38.4 28.672h112.64V829.44c0 29.184 18.432 54.784 45.568 64.512l267.776 96.768c7.68 2.56 15.36 4.096 23.552 4.096 8.192 0 15.872-1.536 23.552-4.096l248.832-89.6 32.256 52.224c6.656 11.264 18.944 18.432 31.744 18.432 6.656 0 12.8-1.536 18.432-5.12 8.704-5.12 14.848-12.8 17.408-22.528 2.56-9.728 1.024-19.456-3.584-28.16-0.512-0.512-0.512-1.024-1.024-1.536l-35.84-58.368c3.584-8.704 5.632-17.92 5.632-27.136v-120.832c0-2.048 0-4.096-0.512-6.144 13.824-28.16 21.504-59.392 21.504-91.136 0-4.608 0-9.728-0.512-14.848h92.16c17.92 0 33.28-11.264 38.4-28.672 4.096-16.384-2.048-33.792-17.408-44.032z m-446.464 88.064c0-70.144 57.344-127.488 127.488-127.488s127.488 57.344 127.488 127.488-57.344 127.488-127.488 127.488-127.488-57.344-127.488-127.488z m140.8-204.288h-3.584c-3.584 0-7.168-0.512-11.264-0.512-37.888 0-74.752 10.24-107.008 30.208-10.24 6.144-19.968 13.824-29.696 22.016H211.968l81.92-329.728 200.192 75.264c9.216 3.584 18.944 3.584 28.16 0l200.192-75.264 82.432 329.728h-7.168c-33.28-29.696-74.24-47.616-118.784-51.2h-2.048l-3.072-0.512z m-429.056 189.952h209.92v0.512c0 3.072 0 6.144 0.512 9.216v4.608c0 34.816 9.216 69.632 26.112 99.84 1.024 2.56 2.048 4.608 3.072 7.168 24.576 39.936 60.928 69.632 104.448 85.504 22.528 8.192 46.592 12.8 71.168 12.8 20.992 0 41.984-3.072 61.952-9.728l18.432 30.208-232.96 83.968-263.168-94.72v-229.376z"></path>
+                </svg>
+              </span>
+              <div class="intro-card-main">
+                <div class="intro-card-info">
+                  <h2 class="intro-card-title">走向共和</h2>
+                  <p class="intro-card-subtitle">题目偏政治抉择 | 难度：⭐⭐⭐⭐</p>
+                  <div class="intro-card-meta-row">
+                    <p class="intro-card-tested">0已测</p>
+                    <button class="intro-card-cta" type="button" disabled aria-disabled="true">开发中</button>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="intro-card intro-card-coming">
+              <span class="intro-card-marker" aria-hidden="true">
+                <svg class="intro-card-marker-icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M979.456 523.264l-99.328-66.048-95.744-382.464c-4.608-17.92-20.48-30.208-38.912-30.208-3.072 0-6.656 0.512-9.728 1.024l-4.608 1.536-223.232 83.456L284.16 46.592c-4.608-1.536-9.216-2.56-13.824-2.56-16.384 0-31.744 10.24-37.376 26.112l-1.536 4.608-95.232 381.952-99.84 66.56c-14.848 10.24-21.504 27.648-15.872 45.056 5.12 17.408 20.48 28.672 38.4 28.672h112.64V829.44c0 29.184 18.432 54.784 45.568 64.512l267.776 96.768c7.68 2.56 15.36 4.096 23.552 4.096 8.192 0 15.872-1.536 23.552-4.096l248.832-89.6 32.256 52.224c6.656 11.264 18.944 18.432 31.744 18.432 6.656 0 12.8-1.536 18.432-5.12 8.704-5.12 14.848-12.8 17.408-22.528 2.56-9.728 1.024-19.456-3.584-28.16-0.512-0.512-0.512-1.024-1.024-1.536l-35.84-58.368c3.584-8.704 5.632-17.92 5.632-27.136v-120.832c0-2.048 0-4.096-0.512-6.144 13.824-28.16 21.504-59.392 21.504-91.136 0-4.608 0-9.728-0.512-14.848h92.16c17.92 0 33.28-11.264 38.4-28.672 4.096-16.384-2.048-33.792-17.408-44.032z m-446.464 88.064c0-70.144 57.344-127.488 127.488-127.488s127.488 57.344 127.488 127.488-57.344 127.488-127.488 127.488-127.488-57.344-127.488-127.488z m140.8-204.288h-3.584c-3.584 0-7.168-0.512-11.264-0.512-37.888 0-74.752 10.24-107.008 30.208-10.24 6.144-19.968 13.824-29.696 22.016H211.968l81.92-329.728 200.192 75.264c9.216 3.584 18.944 3.584 28.16 0l200.192-75.264 82.432 329.728h-7.168c-33.28-29.696-74.24-47.616-118.784-51.2h-2.048l-3.072-0.512z m-429.056 189.952h209.92v0.512c0 3.072 0 6.144 0.512 9.216v4.608c0 34.816 9.216 69.632 26.112 99.84 1.024 2.56 2.048 4.608 3.072 7.168 24.576 39.936 60.928 69.632 104.448 85.504 22.528 8.192 46.592 12.8 71.168 12.8 20.992 0 41.984-3.072 61.952-9.728l18.432 30.208-232.96 83.968-263.168-94.72v-229.376z"></path>
+                </svg>
+              </span>
+              <div class="intro-card-main">
+                <div class="intro-card-info">
+                  <h2 class="intro-card-title">更多经典影视剧</h2>
+                  <p class="intro-card-subtitle">敬请期待</p>
+                </div>
+              </div>
+            </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div id="quiz-page" class="screen hidden">
+      <div class="quiz-shell">
+        <header class="lobby-navbar">
+          <div class="lobby-brand-wrap" aria-label="网站品牌">
+            <svg class="lobby-brand-logo" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M950.857143 365.714286V0H585.142857v73.142857H512v146.285714H438.857143V0H73.142857v73.142857H0v877.714286h146.285714v73.142857h731.428572v-73.142857h146.285714V365.714286h-73.142857z" fill="#000000"></path>
+              <path d="M877.714286 73.142857H658.285714v73.142857H585.142857v146.285715H365.714286V73.142857H146.285714v73.142857H73.142857v731.428572h146.285714v73.142857h585.142858v-73.142857h146.285714V438.857143h-73.142857V73.142857z" fill="#FFBD5A"></path>
+              <path d="M804.571429 585.142857H292.571429v73.142857H146.285714v73.142857H73.142857v146.285715h146.285714v73.142857h585.142858v-73.142857h146.285714v-73.142857h-73.142857v-73.142858h-73.142857V585.142857z" fill="#FFFFFF"></path>
+              <path d="M512 950.857143h146.285714V658.285714H512z" fill="#FB7C7C"></path>
+              <path d="M438.857143 512H219.428571V438.857143h219.428572v73.142857zM804.571429 512H585.142857V438.857143h219.428572v73.142857z" fill="#FFFFFF"></path>
+              <path d="M365.714286 512H292.571429V438.857143h73.142857v73.142857zM658.285714 512h73.142857V438.857143H658.285714v73.142857zM658.285714 658.285714V512H512v146.285714H365.714286v73.142857h146.285714V658.285714h146.285714zM658.285714 658.285714v73.142857h73.142857V658.285714H658.285714z" fill="#000000"></path>
+            </svg>
+            <p class="lobby-navbar-brand">realFrank</p>
+          </div>
+          <div class="lobby-menu-wrap">
+            <button id="quizMenuBtn" class="lobby-menu-btn" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="quizMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div id="quizMenu" class="lobby-menu" hidden>
+              <a class="lobby-menu-item" href="#about">关于作者</a>
+            </div>
+          </div>
+        </header>
+        <main class="quiz-main">
+          <section class="quiz-content">
+            <div class="quiz-progress-wrap">
+              <span class="quiz-progress-label">沉浸测试</span>
+              <div class="quiz-progress-track" aria-hidden="true">
+                <div id="progressBarFill" class="quiz-progress-fill"></div>
+              </div>
+              <span id="progressText" class="quiz-progress-number">1/40</span>
+            </div>
+            <h2 id="questionText" class="quiz-question">题干加载中...</h2>
+            <div id="optionsContainer" class="options-container"></div>
+            <div class="quiz-nav">
+              <button id="prevBtn" class="nav-btn" type="button">上一题</button>
+              <button id="nextBtn" class="nav-btn nav-btn-primary" type="button">下一题</button>
+            </div>
+          </section>
+        </main>
+        <footer class="lobby-footer">
+          <div class="lobby-footer-contact" aria-label="联系方式">
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M834.446 213.447H194.105c-50.176 0-91.022 40.846-91.022 91.022v423.026c0 50.176 40.846 91.022 91.022 91.022h640.341c50.176 0 91.022-40.846 91.022-91.022V304.469c0-50.176-40.846-91.022-91.022-91.022z m36.409 514.048c0 20.025-16.384 36.409-36.409 36.409H194.105c-20.025 0-36.409-16.384-36.409-36.409V304.469c0-20.025 16.384-36.409 36.409-36.409h640.341c20.025 0 36.409 16.384 36.409 36.409v423.026z"></path><path d="M786.773 358.059L514.275 529.977 241.777 358.059c-12.743-8.078-29.582-4.21-37.661 8.533-8.078 12.743-4.21 29.582 8.533 37.661l286.72 180.907c4.551 2.845 9.557 4.21 14.563 4.21h0.91c5.006 0 10.013-1.365 14.563-4.21l286.72-180.907c12.743-8.078 16.611-24.917 8.533-37.661-8.306-12.857-25.145-16.611-37.888-8.533z"></path>
+                </svg>
+              </span>
+              <span>realFrank0722@gmail.com</span>
+            </p>
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M508.928 522.24c-83.968 0-151.552-67.584-151.552-151.552s67.584-151.552 151.552-151.552S660.48 286.72 660.48 370.688 592.896 522.24 508.928 522.24z m0-241.664c-50.176 0-90.112 40.96-90.112 90.112s40.96 90.112 90.112 90.112c50.176 0 90.112-40.96 90.112-90.112s-39.936-90.112-90.112-90.112z"></path><path d="M512 992.256c-184.32 0-371.712-49.152-371.712-143.36 0-57.344 70.656-103.424 191.488-126.976-82.944-97.28-166.912-224.256-166.912-346.112 0-189.44 154.624-344.064 344.064-344.064s344.064 154.624 344.064 344.064c0 137.216-106.496 281.6-196.608 378.88-1.024 1.024-20.48 21.504-36.864 38.912-12.288 13.312-24.576 25.6-25.6 26.624-11.264 12.288-30.72 13.312-43.008 1.024-12.288-11.264-13.312-30.72-2.048-43.008 1.024-1.024 12.288-13.312 25.6-26.624 16.384-17.408 34.816-35.84 35.84-37.888 81.92-89.088 180.224-220.16 180.224-336.896 0-155.648-126.976-282.624-282.624-282.624S226.304 220.16 226.304 375.808c0 119.808 102.4 254.976 188.416 346.112 8.192 8.192 10.24 20.48 6.144 31.744s-13.312 18.432-25.6 20.48c-136.192 16.384-194.56 57.344-194.56 74.752 0 24.576 105.472 81.92 310.272 81.92s310.272-57.344 310.272-81.92c0-10.24-22.528-32.768-83.968-52.224a31.09888 31.09888 0 0 1 18.432-59.392c105.472 32.768 128 78.848 128 110.592 0 95.232-187.392 144.384-371.712 144.384z"></path>
+                </svg>
+              </span>
+              <span>上海·中国</span>
+            </p>
+          </div>
+          <div class="lobby-socials" aria-label="社交链接">
+            <a class="lobby-social-btn lobby-social-btn-xhs" href="https://xhslink.com/m/AfYKCMf6dEX" target="_blank" rel="noopener noreferrer" aria-label="小红书">
+              <svg t="1777388860699" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11964">
+                <path d="M787.456 442.368h-18.944v41.984h27.136V450.56c0-4.608-3.584-8.192-8.192-8.192zM512 0z" fill="currentColor" p-id="11965"></path>
+                <path d="M512 0C229.376 0 0.512 229.376 0.512 512S229.376 1024 512 1024s511.488-228.864 511.488-512c0-282.624-228.864-512-511.488-512z m342.528 414.72c0-14.336 11.776-26.112 26.112-26.112s26.112 11.776 26.112 26.112-11.776 26.112-26.112 26.112h-26.112V414.72zM394.24 460.8l44.032-88.576h51.712l-36.864 70.656c-1.536 3.584 0.512 7.168 4.608 7.168h3.072l3.072-6.144h51.712l-44.544 87.04c-1.536 3.584 0.512 7.168 4.608 7.168h29.696l-23.552 43.008H421.888c-25.6-1.024-9.728-32.256-9.728-32.256l27.136-55.808h-35.84C378.368 492.032 394.24 460.8 394.24 460.8z m-248.32 162.816l-29.696-54.272s17.408-54.272 12.8-125.952H184.32s0.512 163.328-38.4 180.224z m126.976-11.776s-1.536 40.448-36.864 40.448h-17.408s-34.304-3.584-34.304-44.032h34.816V371.712h53.76v240.128z m34.816-168.448h54.784c-4.608 71.68 12.8 125.952 12.8 125.952l-29.696 54.272c-38.4-16.896-37.888-180.224-37.888-180.224z m79.872 208.896c-9.216 0-13.312-6.144-13.312-6.144l26.624-51.2c4.608 4.608 10.752 3.584 10.752 3.584h70.144l-28.16 53.76H387.584z m275.968-0.512H481.792l25.6-51.712h51.2V443.392h-34.304V388.608h121.856v54.784h-33.792v156.672h51.712v51.712z m198.656 0h-13.824c-25.088 0-45.056-19.968-45.056-45.056h50.176v-56.32c0-7.168-5.632-12.8-12.8-12.8h-72.192v114.176h-52.736V537.6h-52.736V483.84h52.736v-41.984h-33.28V388.608h33.28v-16.896h52.736v16.896h20.48c33.28 0 59.904 26.624 59.904 59.904v35.328h6.144c28.672 0 51.712 23.04 51.712 51.712v71.168c0.512 25.088-19.456 45.056-44.544 45.056z" fill="currentColor" p-id="11966"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-douyin" href="https://v.douyin.com/9nLReNOo6vU/" target="_blank" rel="noopener noreferrer" aria-label="抖音">
+              <svg t="1777389546069" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15699">
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="currentColor" p-id="15700"></path>
+                <path d="M759.296 448.512c-48.896 0-96.256-15.872-135.424-45.056v204.8c0 104.448-80.64 189.184-179.968 189.184s-179.968-84.736-179.968-189.184 80.64-189.184 179.968-189.184c9.984 0 19.712 0.768 28.928 2.56V529.92c-8.96-3.584-18.688-5.376-28.16-5.376-44.288 0-80.384 37.632-80.384 84.48s36.096 84.48 80.384 84.48 80.128-37.632 80.128-84.48V202.24h100.352c0 78.336 60.416 141.568 134.656 141.568v104.704h-0.512" fill="#FFFFFF" p-id="15701"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-wechat" href="#" aria-label="微信">
+              <svg t="1777388923968" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13107">
+                <path d="M571.648 511.94c-10.257 0-20.517 9.525-20.517 21.25 0 9.527 10.255 19.053 20.517 19.053 15.393 0 26.385-9.527 26.385-19.053 0-11.724-10.99-21.25-26.385-21.25v0zM504.225 413c16.123 0 26.385-10.257 26.385-25.651 0-16.123-10.261-25.649-26.385-25.649-15.39 0-30.048 9.527-30.048 25.649-0.001 15.396 14.659 25.651 30.048 25.651v0zM512.287 62.492c-248.427 0-449.813 201.386-449.813 449.813 0 248.425 201.386 449.812 449.813 449.812 248.425 0 449.812-201.386 449.812-449.812 0.001-248.427-201.385-449.813-449.812-449.813v0zM427.275 626.265c-27.119 0-46.906-4.394-72.556-11.725l-74.019 37.38 21.257-63.031c-52.035-36.64-82.818-82.811-82.818-139.243 0-99.67 93.808-175.889 208.137-175.889 101.135 0 191.279 60.097 208.867 145.113-7.328-1.469-13.926-2.199-19.788-2.199-99.67 0-176.619 74.75-176.619 164.894 0 15.388 2.199 29.313 5.863 43.972-5.863 0.728-12.461 0.728-18.324 0.728v0zM732.882 698.085l14.655 52.77-55.697-31.512c-21.252 4.394-41.773 10.99-63.025 10.99-98.206 0-175.889-67.422-175.889-150.968 0-83.547 77.685-150.97 175.889-150.97 93.072 0 176.619 67.423 176.619 150.97 0 46.9-31.512 88.673-72.552 118.721v0zM359.117 361.7c-15.39 0-31.512 9.527-31.512 25.649 0 15.395 16.122 25.656 31.512 25.656 14.66 0 26.385-10.261 26.385-25.656 0-16.122-11.725-25.649-26.385-25.649v0zM686.712 511.94c-10.995 0-20.522 9.525-20.522 21.25 0 9.527 9.527 19.053 20.522 19.053 14.655 0 25.649-9.527 25.649-19.053 0-11.724-10.994-21.25-25.649-21.25v0zM686.712 511.94z" p-id="13108" fill="currentColor"></path>
+              </svg>
+            </a>
+          </div>
+          <p class="lobby-copyright">本测试纯属个人兴趣制作，如涉及版权问题请联系作者删除。</p>
+        </footer>
+      </div>
+    </div>
+
+    <div id="result-page" class="screen hidden">
+      <section class="lobby-shell">
+        <header class="lobby-navbar">
+          <div class="lobby-brand-wrap" aria-label="网站品牌">
+            <svg class="lobby-brand-logo" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M950.857143 365.714286V0H585.142857v73.142857H512v146.285714H438.857143V0H73.142857v73.142857H0v877.714286h146.285714v73.142857h731.428572v-73.142857h146.285714V365.714286h-73.142857z" fill="#000000"></path>
+              <path d="M877.714286 73.142857H658.285714v73.142857H585.142857v146.285715H365.714286V73.142857H146.285714v73.142857H73.142857v731.428572h146.285714v73.142857h585.142858v-73.142857h146.285714V438.857143h-73.142857V73.142857z" fill="#FFBD5A"></path>
+              <path d="M804.571429 585.142857H292.571429v73.142857H146.285714v73.142857H73.142857v146.285715h146.285714v73.142857h585.142858v-73.142857h146.285714v-73.142857h-73.142857v-73.142858h-73.142857V585.142857z" fill="#FFFFFF"></path>
+              <path d="M512 950.857143h146.285714V658.285714H512z" fill="#FB7C7C"></path>
+              <path d="M438.857143 512H219.428571V438.857143h219.428572v73.142857zM804.571429 512H585.142857V438.857143h219.428572v73.142857z" fill="#FFFFFF"></path>
+              <path d="M365.714286 512H292.571429V438.857143h73.142857v73.142857zM658.285714 512h73.142857V438.857143H658.285714v73.142857zM658.285714 658.285714V512H512v146.285714H365.714286v73.142857h146.285714V658.285714h146.285714zM658.285714 658.285714v73.142857h73.142857V658.285714H658.285714z" fill="#000000"></path>
+            </svg>
+            <p class="lobby-navbar-brand">realFrank</p>
+          </div>
+          <div class="lobby-menu-wrap">
+            <button id="resultMenuBtn" class="lobby-menu-btn" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="resultMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div id="resultMenu" class="lobby-menu" hidden>
+              <a class="lobby-menu-item" href="#about">关于作者</a>
+            </div>
+          </div>
+        </header>
+        <section class="result-main">
+          <section class="result-card">
+            <div id="poster-content" data-poster-author-line="作者:36" data-poster-social-line="小红书:5040605569 抖音:30709022806">
+          <p class="result-label-row" role="presentation">
+            <span class="result-label-line" aria-hidden="true"></span>
+            <span class="result-label-text">测试结果</span>
+            <span class="result-label-line" aria-hidden="true"></span>
+          </p>
+          <p class="edict-line">你最像这部剧里的. . .</p>
+          <div class="result-main-frame">
+            <div class="result-avatar-wrap">
+              <img id="resultAvatarImg" class="result-avatar-img" alt="" width="92" height="92" decoding="async" />
+              <span id="resultAvatarText" class="result-avatar-text">雍</span>
+            </div>
+            <p id="resultQuote" class="result-quote">“为政之道，在乎取舍。”</p>
+            <h2 id="resultName" class="result-name">雍正 (胤禛)</h2>
+            <p id="resultTitle" class="result-title">大清第一孤臣</p>
+            <div id="resultTraits" class="result-traits"></div>
+            <div class="result-desc-divider" aria-hidden="true"></div>
+            <div id="resultDesc" class="result-desc">
+              <p class="result-desc-paragraph">判词加载中...</p>
+            </div>
+          </div>
+        </div>
+            <div class="chart-container">
+              <canvas id="ability-chart"></canvas>
+            </div>
+            <div class="result-actions">
+              <button id="save-poster-btn" class="result-btn result-btn-save" type="button">生成海报</button>
+              <button id="restart-btn" class="result-btn result-btn-restart" type="button">重新测试</button>
+            </div>
+          </section>
+        </section>
+        <footer class="lobby-footer">
+          <div class="lobby-footer-contact" aria-label="联系方式">
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M834.446 213.447H194.105c-50.176 0-91.022 40.846-91.022 91.022v423.026c0 50.176 40.846 91.022 91.022 91.022h640.341c50.176 0 91.022-40.846 91.022-91.022V304.469c0-50.176-40.846-91.022-91.022-91.022z m36.409 514.048c0 20.025-16.384 36.409-36.409 36.409H194.105c-20.025 0-36.409-16.384-36.409-36.409V304.469c0-20.025 16.384-36.409 36.409-36.409h640.341c20.025 0 36.409 16.384 36.409 36.409v423.026z"></path><path d="M786.773 358.059L514.275 529.977 241.777 358.059c-12.743-8.078-29.582-4.21-37.661 8.533-8.078 12.743-4.21 29.582 8.533 37.661l286.72 180.907c4.551 2.845 9.557 4.21 14.563 4.21h0.91c5.006 0 10.013-1.365 14.563-4.21l286.72-180.907c12.743-8.078 16.611-24.917 8.533-37.661-8.306-12.857-25.145-16.611-37.888-8.533z"></path>
+                </svg>
+              </span>
+              <span>realFrank0722@gmail.com</span>
+            </p>
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M508.928 522.24c-83.968 0-151.552-67.584-151.552-151.552s67.584-151.552 151.552-151.552S660.48 286.72 660.48 370.688 592.896 522.24 508.928 522.24z m0-241.664c-50.176 0-90.112 40.96-90.112 90.112s40.96 90.112 90.112 90.112c50.176 0 90.112-40.96 90.112-90.112s-39.936-90.112-90.112-90.112z"></path><path d="M512 992.256c-184.32 0-371.712-49.152-371.712-143.36 0-57.344 70.656-103.424 191.488-126.976-82.944-97.28-166.912-224.256-166.912-346.112 0-189.44 154.624-344.064 344.064-344.064s344.064 154.624 344.064 344.064c0 137.216-106.496 281.6-196.608 378.88-1.024 1.024-20.48 21.504-36.864 38.912-12.288 13.312-24.576 25.6-25.6 26.624-11.264 12.288-30.72 13.312-43.008 1.024-12.288-11.264-13.312-30.72-2.048-43.008 1.024-1.024 12.288-13.312 25.6-26.624 16.384-17.408 34.816-35.84 35.84-37.888 81.92-89.088 180.224-220.16 180.224-336.896 0-155.648-126.976-282.624-282.624-282.624S226.304 220.16 226.304 375.808c0 119.808 102.4 254.976 188.416 346.112 8.192 8.192 10.24 20.48 6.144 31.744s-13.312 18.432-25.6 20.48c-136.192 16.384-194.56 57.344-194.56 74.752 0 24.576 105.472 81.92 310.272 81.92s310.272-57.344 310.272-81.92c0-10.24-22.528-32.768-83.968-52.224a31.09888 31.09888 0 0 1 18.432-59.392c105.472 32.768 128 78.848 128 110.592 0 95.232-187.392 144.384-371.712 144.384z"></path>
+                </svg>
+              </span>
+              <span>上海·中国</span>
+            </p>
+          </div>
+          <div class="lobby-socials" aria-label="社交链接">
+            <a class="lobby-social-btn lobby-social-btn-xhs" href="https://xhslink.com/m/AfYKCMf6dEX" target="_blank" rel="noopener noreferrer" aria-label="小红书">
+              <svg t="1777388860699" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11964">
+                <path d="M787.456 442.368h-18.944v41.984h27.136V450.56c0-4.608-3.584-8.192-8.192-8.192zM512 0z" fill="currentColor" p-id="11965"></path>
+                <path d="M512 0C229.376 0 0.512 229.376 0.512 512S229.376 1024 512 1024s511.488-228.864 511.488-512c0-282.624-228.864-512-511.488-512z m342.528 414.72c0-14.336 11.776-26.112 26.112-26.112s26.112 11.776 26.112 26.112-11.776 26.112-26.112 26.112h-26.112V414.72zM394.24 460.8l44.032-88.576h51.712l-36.864 70.656c-1.536 3.584 0.512 7.168 4.608 7.168h3.072l3.072-6.144h51.712l-44.544 87.04c-1.536 3.584 0.512 7.168 4.608 7.168h29.696l-23.552 43.008H421.888c-25.6-1.024-9.728-32.256-9.728-32.256l27.136-55.808h-35.84C378.368 492.032 394.24 460.8 394.24 460.8z m-248.32 162.816l-29.696-54.272s17.408-54.272 12.8-125.952H184.32s0.512 163.328-38.4 180.224z m126.976-11.776s-1.536 40.448-36.864 40.448h-17.408s-34.304-3.584-34.304-44.032h34.816V371.712h53.76v240.128z m34.816-168.448h54.784c-4.608 71.68 12.8 125.952 12.8 125.952l-29.696 54.272c-38.4-16.896-37.888-180.224-37.888-180.224z m79.872 208.896c-9.216 0-13.312-6.144-13.312-6.144l26.624-51.2c4.608 4.608 10.752 3.584 10.752 3.584h70.144l-28.16 53.76H387.584z m275.968-0.512H481.792l25.6-51.712h51.2V443.392h-34.304V388.608h121.856v54.784h-33.792v156.672h51.712v51.712z m198.656 0h-13.824c-25.088 0-45.056-19.968-45.056-45.056h50.176v-56.32c0-7.168-5.632-12.8-12.8-12.8h-72.192v114.176h-52.736V537.6h-52.736V483.84h52.736v-41.984h-33.28V388.608h33.28v-16.896h52.736v16.896h20.48c33.28 0 59.904 26.624 59.904 59.904v35.328h6.144c28.672 0 51.712 23.04 51.712 51.712v71.168c0.512 25.088-19.456 45.056-44.544 45.056z" fill="currentColor" p-id="11966"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-douyin" href="https://v.douyin.com/9nLReNOo6vU/" target="_blank" rel="noopener noreferrer" aria-label="抖音">
+              <svg t="1777389546069" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15699">
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="currentColor" p-id="15700"></path>
+                <path d="M759.296 448.512c-48.896 0-96.256-15.872-135.424-45.056v204.8c0 104.448-80.64 189.184-179.968 189.184s-179.968-84.736-179.968-189.184 80.64-189.184 179.968-189.184c9.984 0 19.712 0.768 28.928 2.56V529.92c-8.96-3.584-18.688-5.376-28.16-5.376-44.288 0-80.384 37.632-80.384 84.48s36.096 84.48 80.384 84.48 80.128-37.632 80.128-84.48V202.24h100.352c0 78.336 60.416 141.568 134.656 141.568v104.704h-0.512" fill="#FFFFFF" p-id="15701"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-wechat" href="#" aria-label="微信">
+              <svg t="1777388923968" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13107">
+                <path d="M571.648 511.94c-10.257 0-20.517 9.525-20.517 21.25 0 9.527 10.255 19.053 20.517 19.053 15.393 0 26.385-9.527 26.385-19.053 0-11.724-10.99-21.25-26.385-21.25v0zM504.225 413c16.123 0 26.385-10.257 26.385-25.651 0-16.123-10.261-25.649-26.385-25.649-15.39 0-30.048 9.527-30.048 25.649-0.001 15.396 14.659 25.651 30.048 25.651v0zM512.287 62.492c-248.427 0-449.813 201.386-449.813 449.813 0 248.425 201.386 449.812 449.813 449.812 248.425 0 449.812-201.386 449.812-449.812 0.001-248.427-201.385-449.813-449.812-449.813v0zM427.275 626.265c-27.119 0-46.906-4.394-72.556-11.725l-74.019 37.38 21.257-63.031c-52.035-36.64-82.818-82.811-82.818-139.243 0-99.67 93.808-175.889 208.137-175.889 101.135 0 191.279 60.097 208.867 145.113-7.328-1.469-13.926-2.199-19.788-2.199-99.67 0-176.619 74.75-176.619 164.894 0 15.388 2.199 29.313 5.863 43.972-5.863 0.728-12.461 0.728-18.324 0.728v0zM732.882 698.085l14.655 52.77-55.697-31.512c-21.252 4.394-41.773 10.99-63.025 10.99-98.206 0-175.889-67.422-175.889-150.968 0-83.547 77.685-150.97 175.889-150.97 93.072 0 176.619 67.423 176.619 150.97 0 46.9-31.512 88.673-72.552 118.721v0zM359.117 361.7c-15.39 0-31.512 9.527-31.512 25.649 0 15.395 16.122 25.656 31.512 25.656 14.66 0 26.385-10.261 26.385-25.656 0-16.122-11.725-25.649-26.385-25.649v0zM686.712 511.94c-10.995 0-20.522 9.525-20.522 21.25 0 9.527 9.527 19.053 20.522 19.053 14.655 0 25.649-9.527 25.649-19.053 0-11.724-10.994-21.25-25.649-21.25v0zM686.712 511.94z" p-id="13108" fill="currentColor"></path>
+              </svg>
+            </a>
+          </div>
+          <p class="lobby-copyright">本测试纯属个人兴趣制作，如涉及版权问题请联系作者删除。</p>
+        </footer>
+      </section>
+    </div>
+
+    <div id="about-page" class="screen hidden">
+      <section class="lobby-shell about-shell">
+        <header class="lobby-navbar">
+          <div class="lobby-brand-wrap" aria-label="网站品牌">
+            <svg class="lobby-brand-logo" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M950.857143 365.714286V0H585.142857v73.142857H512v146.285714H438.857143V0H73.142857v73.142857H0v877.714286h146.285714v73.142857h731.428572v-73.142857h146.285714V365.714286h-73.142857z" fill="#000000"></path>
+              <path d="M877.714286 73.142857H658.285714v73.142857H585.142857v146.285715H365.714286V73.142857H146.285714v73.142857H73.142857v731.428572h146.285714v73.142857h585.142858v-73.142857h146.285714V438.857143h-73.142857V73.142857z" fill="#FFBD5A"></path>
+              <path d="M804.571429 585.142857H292.571429v73.142857H146.285714v73.142857H73.142857v146.285715h146.285714v73.142857h585.142858v-73.142857h146.285714v-73.142857h-73.142857v-73.142858h-73.142857V585.142857z" fill="#FFFFFF"></path>
+              <path d="M512 950.857143h146.285714V658.285714H512z" fill="#FB7C7C"></path>
+              <path d="M438.857143 512H219.428571V438.857143h219.428572v73.142857zM804.571429 512H585.142857V438.857143h219.428572v73.142857z" fill="#FFFFFF"></path>
+              <path d="M365.714286 512H292.571429V438.857143h73.142857v73.142857zM658.285714 512h73.142857V438.857143H658.285714v73.142857zM658.285714 658.285714V512H512v146.285714H365.714286v73.142857h146.285714V658.285714h146.285714zM658.285714 658.285714v73.142857h73.142857V658.285714H658.285714z" fill="#000000"></path>
+            </svg>
+            <p class="lobby-navbar-brand">realFrank</p>
+          </div>
+          <div class="lobby-menu-wrap">
+            <button id="aboutMenuBtn" class="lobby-menu-btn" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="aboutMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div id="aboutMenu" class="lobby-menu" hidden>
+              <a class="lobby-menu-item" href="#home">返回首页</a>
+            </div>
+          </div>
+        </header>
+        <main class="about-main">
+          <section class="about-article-wrap" aria-label="关于作者">
+            <div class="about-article-vertical">
+              <h1 class="about-main-title">心鉴</h1>
+              <p>尝渡重洋以求学，及长，隐于市廛。日以计然之术为业，拨筹算以度盈亏，衡锱铢而察机变。</p>
+              <p>然余性本爱奇，闲居之际，好观传奇志异、梨园百戏。见夫卷轴篇章、戏台光影之中，庙堂江湖、才子佳人，或狂狷，或隐忍，或义薄云天，或城府深绝。虽曰幻影虚谈，实则尽态极妍，皆为众生之本相。</p>
+              <p>夫天下熙熙，人心难明。遂偶发奇思，演数理，排机括，筑此方寸之鉴。此鉴不拘一朝一轨，乃广纳百代稗官之言、诸般戏曲之影，汇聚群像于一局。</p>
+              <p>愿诸君驻足至此，权作水月之游。借书中之异客，戏里之旧人，临渊照影，庶几可识胸中之真我也。</p>
+              <div class="about-signature">
+                <span class="about-signature-text">丙午清和，戏题。</span>
+              </div>
+            </div>
+          </section>
+        </main>
+        <footer class="lobby-footer">
+          <div class="lobby-footer-contact" aria-label="联系方式">
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M834.446 213.447H194.105c-50.176 0-91.022 40.846-91.022 91.022v423.026c0 50.176 40.846 91.022 91.022 91.022h640.341c50.176 0 91.022-40.846 91.022-91.022V304.469c0-50.176-40.846-91.022-91.022-91.022z m36.409 514.048c0 20.025-16.384 36.409-36.409 36.409H194.105c-20.025 0-36.409-16.384-36.409-36.409V304.469c0-20.025 16.384-36.409 36.409-36.409h640.341c20.025 0 36.409 16.384 36.409 36.409v423.026z"></path><path d="M786.773 358.059L514.275 529.977 241.777 358.059c-12.743-8.078-29.582-4.21-37.661 8.533-8.078 12.743-4.21 29.582 8.533 37.661l286.72 180.907c4.551 2.845 9.557 4.21 14.563 4.21h0.91c5.006 0 10.013-1.365 14.563-4.21l286.72-180.907c12.743-8.078 16.611-24.917 8.533-37.661-8.306-12.857-25.145-16.611-37.888-8.533z"></path>
+                </svg>
+              </span>
+              <span>realFrank0722@gmail.com</span>
+            </p>
+            <p class="lobby-footer-contact-row">
+              <span class="lobby-footer-contact-icon" aria-hidden="true">
+                <svg class="lobby-footer-contact-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M508.928 522.24c-83.968 0-151.552-67.584-151.552-151.552s67.584-151.552 151.552-151.552S660.48 286.72 660.48 370.688 592.896 522.24 508.928 522.24z m0-241.664c-50.176 0-90.112 40.96-90.112 90.112s40.96 90.112 90.112 90.112c50.176 0 90.112-40.96 90.112-90.112s-39.936-90.112-90.112-90.112z"></path><path d="M512 992.256c-184.32 0-371.712-49.152-371.712-143.36 0-57.344 70.656-103.424 191.488-126.976-82.944-97.28-166.912-224.256-166.912-346.112 0-189.44 154.624-344.064 344.064-344.064s344.064 154.624 344.064 344.064c0 137.216-106.496 281.6-196.608 378.88-1.024 1.024-20.48 21.504-36.864 38.912-12.288 13.312-24.576 25.6-25.6 26.624-11.264 12.288-30.72 13.312-43.008 1.024-12.288-11.264-13.312-30.72-2.048-43.008 1.024-1.024 12.288-13.312 25.6-26.624 16.384-17.408 34.816-35.84 35.84-37.888 81.92-89.088 180.224-220.16 180.224-336.896 0-155.648-126.976-282.624-282.624-282.624S226.304 220.16 226.304 375.808c0 119.808 102.4 254.976 188.416 346.112 8.192 8.192 10.24 20.48 6.144 31.744s-13.312 18.432-25.6 20.48c-136.192 16.384-194.56 57.344-194.56 74.752 0 24.576 105.472 81.92 310.272 81.92s310.272-57.344 310.272-81.92c0-10.24-22.528-32.768-83.968-52.224a31.09888 31.09888 0 0 1 18.432-59.392c105.472 32.768 128 78.848 128 110.592 0 95.232-187.392 144.384-371.712 144.384z"></path>
+                </svg>
+              </span>
+              <span>上海·中国</span>
+            </p>
+          </div>
+          <div class="lobby-socials" aria-label="社交链接">
+            <a class="lobby-social-btn lobby-social-btn-xhs" href="https://xhslink.com/m/AfYKCMf6dEX" target="_blank" rel="noopener noreferrer" aria-label="小红书">
+              <svg t="1777388860699" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11964">
+                <path d="M787.456 442.368h-18.944v41.984h27.136V450.56c0-4.608-3.584-8.192-8.192-8.192zM512 0z" fill="currentColor" p-id="11965"></path>
+                <path d="M512 0C229.376 0 0.512 229.376 0.512 512S229.376 1024 512 1024s511.488-228.864 511.488-512c0-282.624-228.864-512-511.488-512z m342.528 414.72c0-14.336 11.776-26.112 26.112-26.112s26.112 11.776 26.112 26.112-11.776 26.112-26.112 26.112h-26.112V414.72zM394.24 460.8l44.032-88.576h51.712l-36.864 70.656c-1.536 3.584 0.512 7.168 4.608 7.168h3.072l3.072-6.144h51.712l-44.544 87.04c-1.536 3.584 0.512 7.168 4.608 7.168h29.696l-23.552 43.008H421.888c-25.6-1.024-9.728-32.256-9.728-32.256l27.136-55.808h-35.84C378.368 492.032 394.24 460.8 394.24 460.8z m-248.32 162.816l-29.696-54.272s17.408-54.272 12.8-125.952H184.32s0.512 163.328-38.4 180.224z m126.976-11.776s-1.536 40.448-36.864 40.448h-17.408s-34.304-3.584-34.304-44.032h34.816V371.712h53.76v240.128z m34.816-168.448h54.784c-4.608 71.68 12.8 125.952 12.8 125.952l-29.696 54.272c-38.4-16.896-37.888-180.224-37.888-180.224z m79.872 208.896c-9.216 0-13.312-6.144-13.312-6.144l26.624-51.2c4.608 4.608 10.752 3.584 10.752 3.584h70.144l-28.16 53.76H387.584z m275.968-0.512H481.792l25.6-51.712h51.2V443.392h-34.304V388.608h121.856v54.784h-33.792v156.672h51.712v51.712z m198.656 0h-13.824c-25.088 0-45.056-19.968-45.056-45.056h50.176v-56.32c0-7.168-5.632-12.8-12.8-12.8h-72.192v114.176h-52.736V537.6h-52.736V483.84h52.736v-41.984h-33.28V388.608h33.28v-16.896h52.736v16.896h20.48c33.28 0 59.904 26.624 59.904 59.904v35.328h6.144c28.672 0 51.712 23.04 51.712 51.712v71.168c0.512 25.088-19.456 45.056-44.544 45.056z" fill="currentColor" p-id="11966"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-douyin" href="https://v.douyin.com/9nLReNOo6vU/" target="_blank" rel="noopener noreferrer" aria-label="抖音">
+              <svg t="1777389546069" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15699">
+                <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="currentColor" p-id="15700"></path>
+                <path d="M759.296 448.512c-48.896 0-96.256-15.872-135.424-45.056v204.8c0 104.448-80.64 189.184-179.968 189.184s-179.968-84.736-179.968-189.184 80.64-189.184 179.968-189.184c9.984 0 19.712 0.768 28.928 2.56V529.92c-8.96-3.584-18.688-5.376-28.16-5.376-44.288 0-80.384 37.632-80.384 84.48s36.096 84.48 80.384 84.48 80.128-37.632 80.128-84.48V202.24h100.352c0 78.336 60.416 141.568 134.656 141.568v104.704h-0.512" fill="#FFFFFF" p-id="15701"></path>
+              </svg>
+            </a>
+            <a class="lobby-social-btn lobby-social-btn-wechat" href="#" aria-label="微信">
+              <svg t="1777388923968" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13107">
+                <path d="M571.648 511.94c-10.257 0-20.517 9.525-20.517 21.25 0 9.527 10.255 19.053 20.517 19.053 15.393 0 26.385-9.527 26.385-19.053 0-11.724-10.99-21.25-26.385-21.25v0zM504.225 413c16.123 0 26.385-10.257 26.385-25.651 0-16.123-10.261-25.649-26.385-25.649-15.39 0-30.048 9.527-30.048 25.649-0.001 15.396 14.659 25.651 30.048 25.651v0zM512.287 62.492c-248.427 0-449.813 201.386-449.813 449.813 0 248.425 201.386 449.812 449.813 449.812 248.425 0 449.812-201.386 449.812-449.812 0.001-248.427-201.385-449.813-449.812-449.813v0zM427.275 626.265c-27.119 0-46.906-4.394-72.556-11.725l-74.019 37.38 21.257-63.031c-52.035-36.64-82.818-82.811-82.818-139.243 0-99.67 93.808-175.889 208.137-175.889 101.135 0 191.279 60.097 208.867 145.113-7.328-1.469-13.926-2.199-19.788-2.199-99.67 0-176.619 74.75-176.619 164.894 0 15.388 2.199 29.313 5.863 43.972-5.863 0.728-12.461 0.728-18.324 0.728v0zM732.882 698.085l14.655 52.77-55.697-31.512c-21.252 4.394-41.773 10.99-63.025 10.99-98.206 0-175.889-67.422-175.889-150.968 0-83.547 77.685-150.97 175.889-150.97 93.072 0 176.619 67.423 176.619 150.97 0 46.9-31.512 88.673-72.552 118.721v0zM359.117 361.7c-15.39 0-31.512 9.527-31.512 25.649 0 15.395 16.122 25.656 31.512 25.656 14.66 0 26.385-10.261 26.385-25.656 0-16.122-11.725-25.649-26.385-25.649v0zM686.712 511.94c-10.995 0-20.522 9.525-20.522 21.25 0 9.527 9.527 19.053 20.522 19.053 14.655 0 25.649-9.527 25.649-19.053 0-11.724-10.994-21.25-25.649-21.25v0zM686.712 511.94z" p-id="13108" fill="currentColor"></path>
+              </svg>
+            </a>
+          </div>
+          <p class="lobby-copyright">本测试纯属个人兴趣制作，如涉及版权问题请联系作者删除。</p>
+        </footer>
+      </section>
+    </div>
+
+    <script type="module" src="src/app/bootstrap.js"></script>
+  </body>
+</html>
