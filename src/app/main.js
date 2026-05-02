@@ -244,6 +244,13 @@ import { loadScreenplayRuntime } from "../scripts/loader.js";
     }
   }
 
+  function scrollAboutMainToReadingStart() {
+    const aboutMain = aboutPage?.querySelector(".about-main");
+    if (!aboutMain) return;
+    const maxLeft = aboutMain.scrollWidth - aboutMain.clientWidth;
+    if (maxLeft > 0) aboutMain.scrollLeft = maxLeft;
+  }
+
   function showAboutPage() {
     if (!aboutPage) return;
     closeIntroModal();
@@ -251,7 +258,10 @@ import { loadScreenplayRuntime } from "../scripts/loader.js";
     hideAllPages();
     aboutPage.classList.remove("hidden");
     aboutPage.style.display = "block";
-    requestAnimationFrame(() => aboutPage.classList.add("screen-active"));
+    requestAnimationFrame(() => {
+      aboutPage.classList.add("screen-active");
+      requestAnimationFrame(() => scrollAboutMainToReadingStart());
+    });
   }
 
   function showHomePage() {
