@@ -9,6 +9,15 @@
     <meta name="description" content="多部影视剧可选" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="src/styles/style.css" />
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?1709daa2f9ddd5bc527fa633e0016f33";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+      </script>      
   </head>
   <body>
     <div id="lobby-page" class="screen screen-active">
@@ -38,8 +47,16 @@
         </header>
         <section class="lobby-hero">
           <picture class="lobby-hero-bg-wrap" aria-hidden="true">
+            <source type="image/webp" media="(min-width: 768px)" srcset="assets/shared/hero/herocp.webp" />
+            <source type="image/webp" srcset="assets/shared/hero/hero.webp" />
             <source media="(min-width: 768px)" srcset="assets/shared/hero/herocp.png" />
-            <img class="lobby-hero-bg" src="assets/shared/hero/hero.png" alt="" />
+            <img
+              class="lobby-hero-bg"
+              src="assets/shared/hero/hero.png"
+              alt=""
+              fetchpriority="high"
+              decoding="async"
+            />
           </picture>
           <div class="lobby-hero-inner">
             <h1 class="lobby-hero-title">经典影视剧性格测试</h1>
@@ -517,7 +534,7 @@
               <p>夫天下熙熙，人心难明。遂偶发奇思，演数理，排机括，筑此方寸之鉴。此鉴不拘一朝一轨，乃广纳百代稗官之言、诸般戏曲之影，汇聚群像于一局。</p>
               <p>愿诸君驻足至此，权作水月之游。借书中之异客，戏里之旧人，临渊照影，庶几可识胸中之真我也。</p>
               <div class="about-signature">
-                <span class="about-signature-text">丙午清和，戏题。</span>
+                <span class="about-signature-text">丙午清和 戏题</span>
               </div>
             </div>
           </section>
